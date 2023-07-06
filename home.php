@@ -9,17 +9,66 @@
     redirect_to('index.php');
   }
 
+
+$connStr = 
+        'Driver={Microsoft Access Driver (*.mdb, *.accdb)};' .
+        'Dbq=\\\\192.168.0.22\\n-drive\\AmerigasPHPTest.accdb';
+$con = new COM("ADODB.Connection", NULL, CP_UTF8);  // specify UTF-8 code page
+$con->Open($connStr);
+
+$rst = new COM("ADODB.Recordset");
+$sql = "SELECT * FROM frtbill";
+$rst->Open($sql, $con, 3, 3);  // adOpenStatic, adLockOptimistic
 ?>
   
   <div class="container mt-5">
     <div class="row mt-3">
       <div class="col-12">
-        <div id="approve"></div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>PRO</th>
+              <th>SCAC</th>
+              <th>Origin Zip</th>
+              <th>Destination Zip</th>
+              <th>Bill Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+<?php
+  while (!$rst->EOF) {
+    $pro = $rst->Fields("pro");
+    $scac = $rst->Fields("scac");
+    $oZip = $rst->Fields("ozip");
+    $dZip = $rst->Fields("dzip");
+    $bAmt = $rst->Fields("bill_amt");
+  ?>
+
+  <tr>
+    <td><?php echo $pro; ?></td>
+    <td><?php echo $scac; ?></td>
+    <td><?php echo $oZip; ?></td>
+    <td><?php echo $dZip; ?></td>
+    <td><?php echo $bAmt; ?></td>
+    <td>
+      Show Details <br>
+      Approve <br>
+      Reject <br>
+      Add Notes <br>
+    </td>
+  </tr>
+  <?php
+  $rst->MoveNext;
+  }
+  ?>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 
 // //define row context menu contents
@@ -57,7 +106,7 @@
 
 console.log(readCookie('user'));
 
-</script>
+</script> -->
 
 <?php 
 require_once 'includes/footer.php'; 

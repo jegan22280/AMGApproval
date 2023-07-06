@@ -24,7 +24,7 @@ function loginAttempt($username, $password){
     if ($loginSQL->fetch()) {
       $loginResult = true;
       $_SESSION['ID']=$id;
-      $_SESSION['ApprovedBy']=$uinit;
+      setcookie('user', $uinit, 0);
       $_SESSION['LUser']=$user;
       $_SESSION['ULevel']=$userlevel;
       }

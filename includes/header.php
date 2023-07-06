@@ -18,6 +18,7 @@
       <!-- Tabulator  -->
       <link href="css/tabulator_bootstrap4.min.css" rel="stylesheet">
       <script type="text/javascript" src="js/tabulator.min.js"></script>
+      <script type="text/javascript" src="js/script.js"></script>
 
       
       <!-- jquery -->

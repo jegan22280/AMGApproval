@@ -55,6 +55,10 @@
   //   table.download("csv", "errors.csv");
   // });
 
+console.log(readCookie('user'));
+
 </script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php 
+require_once 'includes/footer.php'; 
+?>

@@ -7,11 +7,14 @@
 $_SESSION['Queryparameter'] = $_GET["id"];
 $queryParameter = $_SESSION['Queryparameter'];
 
-    $backupQuery ="SELECT CLIENT, MICRO, SCAC, PRO, SEQ, PAGE_NUM, KEYER from frtbill where PRO+SCAC+SEQ='$queryParameter' and AUTH_STATUS = 'H'";
-    $result = $invDbh->query($backupQuery);
+    $backupQuery = ("SELECT CLIENT, MICRO, SCAC, PRO, SEQ, PAGE_NUM, KEYER from frtbill where PRO+SCAC+SEQ = :parameter");
+    $stmt = $invDbh->prepare($backupQuery);
+    $stmt->bindParam(':parameter', $queryParameter);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
     
     // output data of each row
-    while($row = $result->fetch()) {
+    foreach ($result as $row) {
       $_SESSION['pro'] = $row["PRO"];
       $_SESSION['seq'] = $row["SEQ"];
       $_SESSION['scac'] = $row["SCAC"];
@@ -24,7 +27,7 @@ $queryParameter = $_SESSION['Queryparameter'];
       $keyer = $row["KEYER"];
       
     }
-
+    
     
     if (!isset($client)) {
       $_SESSION["errorMessage"] = "Image not available.";
@@ -65,8 +68,8 @@ $queryParameter = $_SESSION['Queryparameter'];
     }
 
     $pdf->addPDF($pathTofile, $startPage."-".($endPage-1))->merge('browser', $filename);
-  //       //REPLACE 'file' WITH 'browser', 'download', 'string', or 'file' for output options
-  //     	//You do not need to give a file path for browser, string, or download - just the name.
+  // //       //REPLACE 'file' WITH 'browser', 'download', 'string', or 'file' for output options
+  // //     	//You do not need to give a file path for browser, string, or download - just the name.
     
   }
   

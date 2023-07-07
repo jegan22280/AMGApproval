@@ -59,11 +59,11 @@ $queryParameter = $_SESSION['Queryparameter'];
       $pathTofile = '\\\\192.168.0.22\\x-drive\\DB\\'.$client.' '.$date.' '.$batch.'.pdf';
       $filename = $client.' '.$date.' '.$batch.'.pdf';
       
-    if (!file_exists($pathTofile)) {
+    if (!file_exists($pathTofile) || $endPage == 128) {
       $_SESSION["errorMessage"] = "Image not available.";
       redirect_to('error.php');
     }
-    
+
     $pdf->addPDF($pathTofile, $startPage."-".($endPage-1))->merge('browser', $filename);
   //       //REPLACE 'file' WITH 'browser', 'download', 'string', or 'file' for output options
   //     	//You do not need to give a file path for browser, string, or download - just the name.

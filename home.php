@@ -50,12 +50,12 @@ $rst->Open($sql, $con, 3, 3);  // adOpenStatic, adLockOptimistic
     <td><?php echo $scac; ?></td>
     <td><?php echo $oZip; ?></td>
     <td><?php echo $dZip; ?></td>
-    <td><?php echo $bAmt; ?></td>
+    <td><?php echo '$'.number_format(floatval($bAmt),2); ?></td>
     <td>
-      Show Details <br>
-      Approve <br>
-      Reject <br>
-      Add Notes <br>
+      <i class="fa-solid fa-eye" style="color:blue"></i>&nbsp;
+      <i class="fa-solid fa-thumbs-up" style="color:green"></i> &nbsp;
+      <i class="fa-solid fa-thumbs-down" style="color:red"></i> &nbsp;
+      <i class="fa-solid fa-comment" style="color:brown"></i>
     </td>
   </tr>
   <?php

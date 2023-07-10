@@ -11,15 +11,18 @@
   }
 
 
-$connStr = 
-        'Driver={Microsoft Access Driver (*.mdb, *.accdb)};' .
-        'Dbq=\\\\192.168.0.22\\n-drive\\AmerigasPHPTest.accdb';
-$con = new COM("ADODB.Connection", NULL, CP_UTF8);  // specify UTF-8 code page
-$con->Open($connStr);
+// $connStr = 
+//         'Driver={Microsoft Access Driver (*.mdb, *.accdb)};' .
+//         'Dbq=\\\\192.168.0.22\\n-drive\\AmerigasPHPTest.accdb';
+// $con = new COM("ADODB.Connection", NULL, CP_UTF8);  // specify UTF-8 code page
+// $con->Open($connStr);
 
-$rst = new COM("ADODB.Recordset");
-$sql = "SELECT * FROM frtbill";
-$rst->Open($sql, $con, 3, 3);  // adOpenStatic, adLockOptimistic
+// $rst = new COM("ADODB.Recordset");
+$listSql = "SELECT SCAC, PRO, SEQ, OZIP, DZIP, BILL_AMT FROM frtbill where AUTH_status =  'H'";
+$listStmt = $invDbh->query($listSql);
+$listResult = $listStmt->fetchall();
+
+// $rst->Open($sql, $con, 3, 3);  // adOpenStatic, adLockOptimistic
 ?>
   
   <div class="container mt-5">
@@ -39,13 +42,13 @@ $rst->Open($sql, $con, 3, 3);  // adOpenStatic, adLockOptimistic
           </thead>
           <tbody>
 <?php
-  while (!$rst->EOF) {
-    $pro = $rst->Fields("pro");
-    $seq = $rst->Fields("seq");
-    $scac = $rst->Fields("scac");
-    $oZip = $rst->Fields("ozip");
-    $dZip = $rst->Fields("dzip");
-    $bAmt = $rst->Fields("bill_amt");
+  foreach ($listResult as $row) {
+    $scac =$row['SCAC'];
+    $pro =$row['PRO'];
+    $seq = $row['SEQ'];
+    $oZip = $row["OZIP"];
+    $dZip = $row["DZIP"];
+    $bAmt = $row["BILL_AMT"];
   ?>
 
   <tr>
@@ -63,10 +66,8 @@ $rst->Open($sql, $con, 3, 3);  // adOpenStatic, adLockOptimistic
     </td>
   </tr>
   <?php
-  $rst->MoveNext;
   }
-$rst->Close();
-$con->Close();
+
   ?>
           </tbody>
         </table>

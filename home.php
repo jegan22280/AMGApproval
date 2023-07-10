@@ -30,7 +30,7 @@ $rst->Open($sql, $con, 3, 3);  // adOpenStatic, adLockOptimistic
             <tr>
               <th>PRO</th>
               <th>SCAC</th>
-              <th>SEQUENCE</th>
+              <th class="d-none">SEQUENCE</th>
               <th>Origin Zip</th>
               <th>Destination Zip</th>
               <th>Bill Amount</th>
@@ -51,20 +51,22 @@ $rst->Open($sql, $con, 3, 3);  // adOpenStatic, adLockOptimistic
   <tr>
     <td class="pro"><?php echo $pro; ?></td>
     <td class="scac"><?php echo $scac; ?></td>
-    <td class = "seq"><?php echo $seq; ?></td>
+    <td class = "seq d-none"><?php echo $seq; ?></td>
     <td><?php echo $oZip; ?></td>
     <td><?php echo $dZip; ?></td>
     <td><?php echo '$'.number_format(floatval($bAmt),2); ?></td>
     <td>
       <i class="fa-solid fa-eye viewButton" style="color:blue"></i>&nbsp;
-      <i class="fa-solid fa-thumbs-up" style="color:green"></i> &nbsp;
-      <i class="fa-solid fa-thumbs-down" style="color:red"></i> &nbsp;
+      <i class="fa-solid fa-thumbs-up approveButton" style="color:green"></i> &nbsp;
+      <i class="fa-solid fa-thumbs-down rejectButton" style="color:red"></i> &nbsp;
       <i class="fa-solid fa-comment" style="color:brown"></i>
     </td>
   </tr>
   <?php
   $rst->MoveNext;
   }
+$rst->Close();
+$con->Close();
   ?>
           </tbody>
         </table>
@@ -73,6 +75,7 @@ $rst->Open($sql, $con, 3, 3);  // adOpenStatic, adLockOptimistic
   </div>
   
 <script type="text/javascript">
+
 $(".viewButton").click(function() {
         let pro = $(this).closest("tr")   // Finds the closest row <tr> 
         .find(".pro")     // Gets a descendent with class="pro"
@@ -85,7 +88,34 @@ $(".viewButton").click(function() {
         .text();         // Retrieves the text within <td>
         let id = pro+scac+seq
     window.open(`backupDocs.php?id=${id}`);
+});
 
+$(".rejectButton").click(function() {
+          let pro = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".pro")     // Gets a descendent with class="pro"
+        .text();         // Retrieves the text within <td>
+        let scac = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".scac")     // Gets a descendent with class="pro"
+        .text();         // Retrieves the text within <td>
+        let seq = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".seq")     // Gets a descendent with class="pro"
+        .text();         // Retrieves the text within <td>
+        let id = pro+scac+seq
+    window.location.replace(`reject.php?id=${id}`);
+});
+
+$(".approveButton").click(function() {
+          let pro = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".pro")     // Gets a descendent with class="pro"
+        .text();         // Retrieves the text within <td>
+        let scac = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".scac")     // Gets a descendent with class="pro"
+        .text();         // Retrieves the text within <td>
+        let seq = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".seq")     // Gets a descendent with class="pro"
+        .text();         // Retrieves the text within <td>
+        let id = pro+scac+seq
+    window.location.replace(`approve.php?id=${id}`);
 });
 </script>
 

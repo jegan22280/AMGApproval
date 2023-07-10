@@ -36,18 +36,19 @@
       <!-- Custom CSS -->
       <link rel="stylesheet" href="css/styles.css">
 
+      <script>
+        window.history.forward();
+      </script> 
 
       <title><?php  echo TITLE  ?></title>
   </head>
   <body>
     <header>
       <nav class="navbar navbar-expand navbar-light fixed-top bg-light">
-        <span class=navbar-brand>Amerigas Approvals</span>
+        <span class=navbar-brand><a href = "home.php">Amerigas Approvals</a></span>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
-          </li>  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
         </ul>
         <a class="ml-auto" href="logout.php"><button id="logoutButton" class="btn btn-link logout" type="button" name="button"><i class="fas fa-sign-out-alt"></i> Logout</button></a>
       </nav>

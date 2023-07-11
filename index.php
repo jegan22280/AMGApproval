@@ -5,7 +5,7 @@ require_once 'includes/sessions.php';
 require_once 'includes/functions.php';
 
 
-if (isset($_SESSION['ID'])) {
+if (isset($_SESSION['userID'])) {
   redirect_to('home.php');
 }
 

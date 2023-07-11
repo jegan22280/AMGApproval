@@ -48,11 +48,12 @@ function loginAttempt($username, $password){
 
   function swapAuthStatus($action, $uniqueID, $comments)  {
 
-    
+    $date = date('Y-m-d');
     $statConn = my_conn();
-    $statSQL = "UPDATE held_invoices set auth_status =?, comment=? where uniqueID =?";
+    $authID = $_SESSION['user'];
+    $statSQL = "UPDATE held_invoices set auth_status =?, auth_note=?, auth_id=?, auth_date=? where uniqueID =?";
     $statStmt = $statConn->prepare($statSQL);
-    $statStmt -> bind_param('ssi', $action, $comments, $uniqueID);
+    $statStmt -> bind_param('ssssi', $action, $comments, $authID, $date, $uniqueID);
     $statStmt -> execute();
     redirect_to('home.php');
   }

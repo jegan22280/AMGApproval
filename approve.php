@@ -6,16 +6,18 @@
   require_once 'includes/mysqlConnector.php';
 
 
-  if (!isset($_SESSION['ID'])) {
+  if (!isset($_SESSION['userID'])) {
     redirect_to('index.php');
   }
 
-$_SESSION['Queryparameter'] = $_GET["invoiceID"];
-$queryParameter = $_SESSION['Queryparameter'];
+$_SESSION['queryParameter'] = $_GET["invoiceID"];
+$queryParameter = $_SESSION['queryParameter'];
 
 // fill out info in the table
-    $info = getInfo($queryParameter);
-     
+$info = getInfo($queryParameter);
+
+  // output data of each row
+ 
     $pro =$info['pro'];
     $scac =$info['scac'];
     $oZip = $info["ozip"];
@@ -63,21 +65,28 @@ $queryParameter = $_SESSION['Queryparameter'];
             <span><strong>Comments:</strong></span>
         </div>
     </div>
-    <form action="approve.php">
+    <form action='action.php' method="post">
         <div class="row">
             <div class="col-6">
-                <textarea type="text" class="form-control" name="comment"> </textarea>
+                <textarea class="form-control" value="comment" name='comment'></textarea>
             </div>
         </div>
         <div class="row mt-2">
             <div class="col-1">
-                <button class="btn btn-primary" type="submit" value="submit">Submit</button>
+                <input class="btn btn-primary" type="submit" name="Approve"></input>
             </div>
             <div class="col-1">
-                <button class="btn btn-danger" type="submit" value="cancel">Cancel</button>
+                <button class="btn btn-danger canButton" type="submit" value="cancel">Cancel</button>
             </div>
         </div>
     </form>
 </div>
+
+<script>
+    $('.canButton').click(function(event){
+        event.preventDefault();
+        window.location.replace(`home.php`)
+    })
+</script>
 
 <?php require_once "includes/footer.php";  ?>

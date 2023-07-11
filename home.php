@@ -3,10 +3,11 @@
   require_once 'includes/functions.php';
   require_once 'includes/sessions.php';
   require_once 'includes/header.php';
+  require_once 'includes/connector.php';
   require_once 'includes/mysqlConnector.php';
 
 
-  if (!isset($_SESSION['ID'])) {
+  if (!isset($_SESSION['userID'])) {
     redirect_to('index.php');
   }
 
@@ -40,19 +41,20 @@ $listResult = $listConn->query($listSql);
     $dZip = $row["dzip"];
     $bAmt = $row["bill_amt"];
     $id = $row["uniqueID"];
+    $seq = $row["seq"];
   ?>
 
   <tr>
-    <td><?php echo $pro; ?></td>
-    <td><?php echo $scac; ?></td>
+    <td class='pro'><?php echo $pro; ?></td>
+    <td class='scac'><?php echo $scac; ?></td>
     <td class = "id d-none"><?php echo $id; ?></td>
     <td><?php echo $oZip; ?></td>
     <td><?php echo $dZip; ?></td>
     <td><?php echo '$'.number_format(floatval($bAmt),2); ?></td>
     <td>
-      <i class="fa-solid fa-eye viewButton" style="color:blue"></i>&nbsp;
-      <i class="fa-solid fa-thumbs-up approveButton" style="color:green"></i> &nbsp;
-      <i class="fa-solid fa-thumbs-down rejectButton" style="color:red"></i> &nbsp;
+      <i class="fa-solid fa-file-arrow-down viewButton"data-toggle="tooltip" title="Download/View Backup docs"></i> &nbsp;
+      <i class="fa-solid fa-thumbs-up approveButton" style="color:green"data-toggle="tooltip" title="Approve Invoice"></i> &nbsp;
+      <i class="fa-solid fa-thumbs-down rejectButton" style="color:red"data-toggle="tooltip" title="Reject Invoice"></i> &nbsp;
       <i class="fa-solid fa-comment" style="color:brown"></i>
     </td>
   </tr>
@@ -69,17 +71,13 @@ $listResult = $listConn->query($listSql);
 <script type="text/javascript">
 
 $(".viewButton").click(function() {
-        let pro = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".pro")     // Gets a descendent with class="pro"
+
+        let id = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".id")     // Gets a descendent with class="pro"
         .text();         // Retrieves the text within <td>
-        let scac = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".scac")     // Gets a descendent with class="pro"
-        .text();         // Retrieves the text within <td>
-        let seq = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".seq")     // Gets a descendent with class="pro"
-        .text();         // Retrieves the text within <td>
-        let id = pro+scac+seq
-    window.open(`backupDocs.php?id=${id}`);
+        
+    // window.open(`backupDocs.php?id=${id}`);
+    // window.location.replace(`https://payments.dblinc.net/GetClientIMG/GetImage.aspx?CLIENT=AMG&UID=${id}`);
 });
 
 $(".rejectButton").click(function() {

@@ -23,7 +23,7 @@ function loginAttempt($username, $password){
   if ($loginSQL ->num_rows == 1){
     if ($loginSQL->fetch()) {
       $loginResult = true;
-      $_SESSION['ID']=$id;
+      $_SESSION['userID']=$id;
       $_SESSION['user']=$uinit;
       $_SESSION['LUser']=$user;
       $_SESSION['ULevel']=$userlevel;
@@ -44,6 +44,17 @@ function loginAttempt($username, $password){
     $result = $stmt->get_result();
     $info = $result->fetch_assoc();
     return $info;
+  }
+
+  function swapAuthStatus($action, $uniqueID, $comments)  {
+
+    
+    $statConn = my_conn();
+    $statSQL = "UPDATE held_invoices set auth_status =?, comment=? where uniqueID =?";
+    $statStmt = $statConn->prepare($statSQL);
+    $statStmt -> bind_param('ssi', $action, $comments, $uniqueID);
+    $statStmt -> execute();
+    redirect_to('home.php');
   }
 
   function buildURL() {

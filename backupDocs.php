@@ -2,6 +2,7 @@
 <?php  require_once 'includes/sessions.php';  ?>
 <?php  require_once 'includes/functions.php'; ?>
 <?php  require_once 'PDFMerger/PDFMerger.php'; ?>
+<?php  require_once 'includes/connector.php'; ?>
 <?php  use PDFMerger\PDFMerger;  ?>
 <?php
 $_SESSION['Queryparameter'] = $_GET["id"];
@@ -15,12 +16,9 @@ $queryParameter = $_SESSION['Queryparameter'];
     
     // output data of each row
     foreach ($result as $row) {
-      $_SESSION['pro'] = $row["PRO"];
-      $_SESSION['seq'] = $row["SEQ"];
-      $_SESSION['scac'] = $row["SCAC"];
-      $pro =$_SESSION['pro'];
-      $seq =$_SESSION['seq'];
-      $scac =$_SESSION['scac'];
+      $pro =$row['PRO'];
+      $seq =$row['SEQ'];
+      $scac =$row['SCAC'];
       $client = $row["CLIENT"];
       $micro = $row["MICRO"];
       $startPage = $row["PAGE_NUM"];

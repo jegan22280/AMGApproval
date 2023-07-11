@@ -4,9 +4,10 @@
   require_once 'includes/mysqlConnector.php';
 
 
-//   if (!isset($_SESSION['ID'])) {
-//     redirect_to('home.php');
-//   }
+  if ($_SESSION['ULevel'] < 700) {
+    $_SESSION['errorMessage'] = 'You do not have permission to preform this action';
+    redirect_to('error.php');
+  }
 
   if (isset($_POST['Approve'])) {
     swapAuthStatus('A',$_SESSION['queryParameter'],$_POST['comment']);
@@ -16,7 +17,4 @@
     swapAuthStatus('R',$_SESSION['queryParameter'],$_POST['comment']);
   }
   
-splooge($_POST);
-splooge($_SESSION);
-// unset($_SESSION['queryParameter']);
 ?>

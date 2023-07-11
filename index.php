@@ -37,6 +37,8 @@ require_once 'includes/loginheader.php';
   <div class="row">
     <div class="col-4 offset-4">
       <form class="form-signin" action="index.php" method="post">
+        <img src="img/DBLIcon.png" class="img-fluid" alt="D&B Logistics Logo">
+        <hr>
         <div class="text-center">
             <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
         </div>

@@ -15,9 +15,6 @@
       <!-- Bootstrap CSS/CDN -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       
-      <!-- Tabulator  -->
-      <link href="css/tabulator_bootstrap4.min.css" rel="stylesheet">
-      <script type="text/javascript" src="js/tabulator.min.js"></script>
 
       
       
@@ -36,16 +33,16 @@
       <!-- Custom CSS -->
       <link rel="stylesheet" href="css/styles.css">
 
-      <script>
+      <!-- <script>
         window.history.forward();
-      </script> 
+      </script>  -->
 
       <title><?php  echo TITLE  ?></title>
   </head>
   <body>
     <header>
       <nav class="navbar navbar-expand navbar-light fixed-top bg-light">
-        <span class=navbar-brand><a href = "home.php">Amerigas Approvals</a></span>
+        <span class=navbar-brand><a class='logout' href = "home.php"><img src="img/AMG_logo.png" alt="propane tank" class="img-fluid navbar-brand-img">Amerigas Approvals</a></span>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 

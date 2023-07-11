@@ -6,6 +6,11 @@
   require_once 'includes/mysqlConnector.php';
 
 
+  if ($_SESSION['ULevel'] < 700) {
+    $_SESSION['errorMessage'] = 'You do not have permission to preform this action';
+    redirect_to('error.php');
+  }
+  
   if (!isset($_SESSION['userID'])) {
     redirect_to('index.php');
   }

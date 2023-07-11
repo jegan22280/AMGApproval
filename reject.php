@@ -5,7 +5,11 @@
   require_once 'includes/header.php';
   require_once 'includes/mysqlConnector.php';
 
-
+  if ($_SESSION['ULevel'] < 700) {
+    $_SESSION['errorMessage'] = 'You do not have permission to preform this action';
+    redirect_to('error.php');
+  }
+  
   if (!isset($_SESSION['userID'])) {
     redirect_to('index.php');
   }
@@ -52,7 +56,7 @@ $info = getInfo($queryParameter);
                 </tr>
                 <tr>
                     <th scope="row">Amount</th>
-                    <td class="text-right"><?php echo "$".$amount; ?>0</td>
+                    <td class="text-right"><?php echo "$".$amount; ?></td>
                 </tr>
                 </tbody>
             </table>

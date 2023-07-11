@@ -3,7 +3,6 @@
   require_once 'includes/functions.php';
   require_once 'includes/sessions.php';
   require_once 'includes/header.php';
-  require_once 'includes/connector.php';
   require_once 'includes/mysqlConnector.php';
 
 
@@ -20,7 +19,7 @@ $listResult = $listConn->query($listSql);
   <div class="container mt-5">
     <div class="row mt-3">
       <div class="col-12">
-        <table id="dataTable" class="table">
+        <table id="dataTable" class="table mt-5">
           <thead>
             <tr>
               <th>PRO</th>

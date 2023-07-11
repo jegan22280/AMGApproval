@@ -2,7 +2,6 @@
 
 session_unset(); 
 session_start();
-header('Set-Cookie: ' . session_name() . '=' . session_id() . '; SameSite=None; Secure');
 
 function errorMessage(){
   if (isset($_SESSION["errorMessage"])){

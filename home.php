@@ -3,26 +3,17 @@
   require_once 'includes/functions.php';
   require_once 'includes/sessions.php';
   require_once 'includes/header.php';
-  require_once 'includes/connector.php';
+  require_once 'includes/mysqlConnector.php';
 
 
   if (!isset($_SESSION['ID'])) {
     redirect_to('index.php');
   }
 
+$listConn = my_conn();
+$listSql = "SELECT * FROM held_invoices where auth_status =  'H'";
+$listResult = $listConn->query($listSql);
 
-// $connStr = 
-//         'Driver={Microsoft Access Driver (*.mdb, *.accdb)};' .
-//         'Dbq=\\\\192.168.0.22\\n-drive\\AmerigasPHPTest.accdb';
-// $con = new COM("ADODB.Connection", NULL, CP_UTF8);  // specify UTF-8 code page
-// $con->Open($connStr);
-
-// $rst = new COM("ADODB.Recordset");
-$listSql = "SELECT SCAC, PRO, SEQ, OZIP, DZIP, BILL_AMT FROM frtbill where AUTH_status =  'H'";
-$listStmt = $invDbh->query($listSql);
-$listResult = $listStmt->fetchall();
-
-// $rst->Open($sql, $con, 3, 3);  // adOpenStatic, adLockOptimistic
 ?>
   
   <div class="container mt-5">
@@ -33,7 +24,7 @@ $listResult = $listStmt->fetchall();
             <tr>
               <th>PRO</th>
               <th>SCAC</th>
-              <th class="d-none">SEQUENCE</th>
+              <th class="d-none">id</th>
               <th>Origin Zip</th>
               <th>Destination Zip</th>
               <th>Bill Amount</th>
@@ -43,18 +34,18 @@ $listResult = $listStmt->fetchall();
           <tbody>
 <?php
   foreach ($listResult as $row) {
-    $scac =$row['SCAC'];
-    $pro =$row['PRO'];
-    $seq = $row['SEQ'];
-    $oZip = $row["OZIP"];
-    $dZip = $row["DZIP"];
-    $bAmt = $row["BILL_AMT"];
+    $scac =$row['scac'];
+    $pro =$row['pro'];
+    $oZip = $row["ozip"];
+    $dZip = $row["dzip"];
+    $bAmt = $row["bill_amt"];
+    $id = $row["uniqueID"];
   ?>
 
   <tr>
-    <td class="pro"><?php echo $pro; ?></td>
-    <td class="scac"><?php echo $scac; ?></td>
-    <td class = "seq d-none"><?php echo $seq; ?></td>
+    <td><?php echo $pro; ?></td>
+    <td><?php echo $scac; ?></td>
+    <td class = "id d-none"><?php echo $id; ?></td>
     <td><?php echo $oZip; ?></td>
     <td><?php echo $dZip; ?></td>
     <td><?php echo '$'.number_format(floatval($bAmt),2); ?></td>
@@ -92,31 +83,19 @@ $(".viewButton").click(function() {
 });
 
 $(".rejectButton").click(function() {
-          let pro = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".pro")     // Gets a descendent with class="pro"
+          let id = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".id")     // Gets a descendent with class="pro"
         .text();         // Retrieves the text within <td>
-        let scac = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".scac")     // Gets a descendent with class="pro"
-        .text();         // Retrieves the text within <td>
-        let seq = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".seq")     // Gets a descendent with class="pro"
-        .text();         // Retrieves the text within <td>
-        let id = pro+scac+seq
-    window.location.replace(`reject.php?id=${id}`);
+
+    window.location.replace(`reject.php?invoiceID=${id}`);
 });
 
 $(".approveButton").click(function() {
-          let pro = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".pro")     // Gets a descendent with class="pro"
+          let id = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".id")     // Gets a descendent with class="pro"
         .text();         // Retrieves the text within <td>
-        let scac = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".scac")     // Gets a descendent with class="pro"
-        .text();         // Retrieves the text within <td>
-        let seq = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".seq")     // Gets a descendent with class="pro"
-        .text();         // Retrieves the text within <td>
-        let id = pro+scac+seq
-    window.location.replace(`approve.php?id=${id}`);
+
+    window.location.replace(`approve.php?invoiceID=${id}`);
 });
 </script>
 

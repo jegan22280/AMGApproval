@@ -35,6 +35,17 @@ function loginAttempt($username, $password){
     $loginConn->close();
   }
 
+  function getInfo($param) {
+    $infoConn = my_conn();
+    $infoQuery = 'SELECT * from held_invoices where uniqueID = ?';
+    $stmt = $infoConn->prepare($infoQuery);
+    $stmt -> bind_param('i', $param);
+    $stmt -> execute();
+    $result = $stmt->get_result();
+    $info = $result->fetch_assoc();
+    return $info;
+  }
+
   function buildURL() {
     // Get the id attribute value for the table.
     $id = "dataTable";

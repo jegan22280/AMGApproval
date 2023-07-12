@@ -32,6 +32,7 @@ $listResult = $listConn->query($listSql);
             </tr>
           </thead>
           <tbody>
+
 <?php
   foreach ($listResult as $row) {
     $scac =$row['scac'];
@@ -54,12 +55,13 @@ $listResult = $listConn->query($listSql);
       <i class="fa-solid fa-file-arrow-down viewButton"data-toggle="tooltip" title="Download/View Backup docs"></i> &nbsp;
       <i class="fa-solid fa-thumbs-up approveButton" style="color:green"data-toggle="tooltip" title="Approve Invoice"></i> &nbsp;
       <i class="fa-solid fa-thumbs-down rejectButton" style="color:red"data-toggle="tooltip" title="Reject Invoice"></i> &nbsp;
-      <i class="fa-solid fa-comment" style="color:brown"></i>
+      <i class="fa-solid fa-comment commentButton" style="color:brown"data-toggle="tooltip" title="Add Comment"></i>
     </td>
   </tr>
+
   <?php
   }
-
+  $listConn -> close();
   ?>
           </tbody>
         </table>
@@ -94,6 +96,15 @@ $(".approveButton").click(function() {
 
     window.location.replace(`approve.php?invoiceID=${id}`);
 });
+
+$(".commentButton").click(function() {
+          let id = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".id")     // Gets a descendent with class="pro"
+        .text();         // Retrieves the text within <td>
+
+    window.location.replace(`comment.php?invoiceID=${id}`);
+});
+
 </script>
 
 <?php 

@@ -44,6 +44,7 @@ function loginAttempt($username, $password){
     $result = $stmt->get_result();
     $info = $result->fetch_assoc();
     return $info;
+    $infoConn -> close();
   }
 
   function swapAuthStatus($action, $uniqueID, $comments)  {
@@ -54,7 +55,29 @@ function loginAttempt($username, $password){
     $statStmt = $statConn->prepare($statSQL);
     $statStmt -> bind_param('ssssi', $action, $comments, $authID, $date, $uniqueID);
     $statStmt -> execute();
-    redirect_to('home.php');
+    //not closing sql connect here as we need to leave this open to run two statements in a row  
   }
 
+  function logWriter($action, $uniqueID, $comments, $scac, $pro) {
+    //variable sets
+    if ($action == 'A') {
+      $logAction = 'Approve';
+    } elseif ($action == 'R') {
+      $logAction = 'Reject';
+    }else {
+      $logAction = 'Comment';
+    }
+    $date = date('Y-m-d');
+    $logConn = my_conn();
+    $authID = $_SESSION['user'];
+    $pro = $_SESSION['pro'];
+    $scac = $_SESSION['scac'];
+
+    // sql query sets
+    $logSql = "INSERT into approval_log (uniqueID, `date`, user, comment, `action`, scac, pro ) values (?,?,?,?,?,?,?)";
+    $logStmt = $logConn->prepare($logSql);
+    $logStmt -> bind_param('issssss', $uniqueID, $date, $authID, $comments, $logAction, $scac, $pro);
+    $logStmt -> execute();
+    $logConn -> close();
+  }
 ?>

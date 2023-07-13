@@ -55,7 +55,7 @@ $listResult = $listConn->query($listSql);
       <i class="fa-solid fa-file-arrow-down viewButton"data-toggle="tooltip" title="Download/View Backup docs"></i> &nbsp;
       <i class="fa-solid fa-thumbs-up approveButton" style="color:green"data-toggle="tooltip" title="Approve Invoice"></i> &nbsp;
       <i class="fa-solid fa-thumbs-down rejectButton" style="color:red"data-toggle="tooltip" title="Reject Invoice"></i> &nbsp;
-      <i class="fa-solid fa-comment commentButton" style="color:brown"data-toggle="tooltip" title="Add Comment"></i>
+      <i class="fa-solid fa-comment commentButton" style="color:brown"data-toggle="tooltip" title="Add Comment only"></i>
     </td>
   </tr>
 

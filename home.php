@@ -24,7 +24,9 @@ $listResult = $listConn->query($listSql);
             <tr>
               <th>PRO</th>
               <th>SCAC</th>
+              <th>Hold Reason</th>
               <th class="d-none">id</th>
+              <th class="d-none">ship date</th>
               <th>Origin Zip</th>
               <th>Destination Zip</th>
               <th>Bill Amount</th>
@@ -42,12 +44,16 @@ $listResult = $listConn->query($listSql);
     $bAmt = $row["bill_amt"];
     $id = $row["uniqueID"];
     $seq = $row["seq"];
+    $note = $row["auth_note"];
+    $ship = $row["ship_date"]
   ?>
 
   <tr>
     <td class='pro'><?php echo $pro; ?></td>
     <td class='scac'><?php echo $scac; ?></td>
+    <td class='note'><?php echo $note; ?></td>
     <td class = "id d-none"><?php echo $id; ?></td>
+    <td class = "ship d-none"><?php echo $ship; ?></td>
     <td><?php echo $oZip; ?></td>
     <td><?php echo $dZip; ?></td>
     <td><?php echo '$'.number_format(floatval($bAmt),2); ?></td>
@@ -82,27 +88,36 @@ $(".viewButton").click(function() {
 });
 
 $(".rejectButton").click(function() {
-          let id = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".id")     // Gets a descendent with class="pro"
+        let id = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".id")     // Gets a descendent with class="id"
+        .text();         // Retrieves the text within <td>
+        let ship = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".ship")     // Gets a descendent with class="ship"
         .text();         // Retrieves the text within <td>
 
-    window.location.replace(`reject.php?invoiceID=${id}`);
+    window.location.replace(`reject.php?invoiceID=${id}&shipDate=${ship}`);
 });
 
 $(".approveButton").click(function() {
-          let id = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".id")     // Gets a descendent with class="pro"
+        let id = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".id")     // Gets a descendent with class="id"
+        .text();         // Retrieves the text within <td>
+        let ship = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".ship")     // Gets a descendent with class="ship"
         .text();         // Retrieves the text within <td>
 
-    window.location.replace(`approve.php?invoiceID=${id}`);
+    window.location.replace(`approve.php?invoiceID=${id}&shipDate=${ship}`);
 });
 
 $(".commentButton").click(function() {
-          let id = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".id")     // Gets a descendent with class="pro"
+        let id = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".id")     // Gets a descendent with class="id"
+        .text();         // Retrieves the text within <td>
+        let ship = $(this).closest("tr")   // Finds the closest row <tr> 
+        .find(".ship")     // Gets a descendent with class="ship"
         .text();         // Retrieves the text within <td>
 
-    window.location.replace(`comment.php?invoiceID=${id}`);
+    window.location.replace(`comment.php?invoiceID=${id}&shipDate=${ship}`);
 });
 
 </script>

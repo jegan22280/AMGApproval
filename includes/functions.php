@@ -58,7 +58,7 @@ function loginAttempt($username, $password){
     //not closing sql connect here as we need to leave this open to run two statements in a row  
   }
 
-  function logWriter($action, $uniqueID, $comments, $scac, $pro) {
+  function logWriter($action, $uniqueID, $comments, $scac, $pro, $ship) {
     //variable sets
     if ($action == 'A') {
       $logAction = 'Approve';
@@ -70,14 +70,13 @@ function loginAttempt($username, $password){
     $date = date('Y-m-d');
     $logConn = my_conn();
     $authID = $_SESSION['user'];
-    $pro = $_SESSION['pro'];
-    $scac = $_SESSION['scac'];
 
     // sql query sets
-    $logSql = "INSERT into approval_log (uniqueID, `date`, user, comment, `action`, scac, pro ) values (?,?,?,?,?,?,?)";
+    $logSql = "INSERT into approval_log (uniqueID, ship_date, note_date, user, comment, `action`, scac, pro) values (?,?,?,?,?,?,?,?)";
     $logStmt = $logConn->prepare($logSql);
-    $logStmt -> bind_param('issssss', $uniqueID, $date, $authID, $comments, $logAction, $scac, $pro);
+    $logStmt -> bind_param('isssssss', $uniqueID, $ship, $date, $authID, $comments, $logAction, $scac, $pro);
     $logStmt -> execute();
     $logConn -> close();
+
   }
 ?>

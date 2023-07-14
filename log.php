@@ -23,12 +23,13 @@
     //Define Table Columns
     columns:[ 
       {title:"ID", field:"uniqueID", visible:false},
-      {title:"Date", field:"date", headerFilter:true, headerFilterPlaceholder:"Filter Date",width:"12rem"},
+      {title:"Note Date", field:"note_date", headerFilter:true, headerFilterPlaceholder:"Filter Date",width:"12rem"},
+      {title:"Ship Date", field:"ship_date", headerFilter:true, headerFilterPlaceholder:"Filter Date",width:"12rem"},
       {title:"PRO", field:"pro", headerFilter:true, headerFilterPlaceholder:"Filter PRO",width:"12rem"},
       {title:"SCAC", field:"scac", headerFilter:true, headerFilterPlaceholder:"Filter SCAC",width:"12rem"},
       {title:"User", field:"user", headerFilter:true, headerFilterPlaceholder:"Filter User",width:"12rem"},
       {title:"Type", field:"action",width:"10rem"},
-      {title:"Comment", field:"comment", formatter:"textarea", width:"40rem"},
+      {title:"Comment", field:"comment", formatter:"textarea", width:"30rem"},
     ],
     pagination:'local',
     paginationSize: 15,

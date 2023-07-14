@@ -16,13 +16,16 @@
 
 $_SESSION['queryParameter'] = $_GET["invoiceID"];
 $queryParameter = $_SESSION['queryParameter'];
+$_SESSION['shipDate'] = $_GET['shipDate'];
 
 // fill out info in the table
 $info = getInfo($queryParameter);
   
   // output data of each row
     $pro =$info['pro'];
+    $_SESSION['pro']=$pro; //this is here to carry the pro to the log
     $scac =$info['scac'];
+    $_SESSION['scac']=$scac; //this is here to carry the scac to the log
     $oZip = $info["ozip"];
     $dZip = $info["dzip"];
     $amount = $info["bill_amt"];

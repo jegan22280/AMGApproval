@@ -17,6 +17,7 @@
 
 $_SESSION['queryParameter'] = $_GET["invoiceID"];
 $queryParameter = $_SESSION['queryParameter'];
+$_SESSION['shipDate'] = $_GET['shipDate'];
 
 // fill out info in the table
 $info = getInfo($queryParameter);

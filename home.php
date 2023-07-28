@@ -83,8 +83,8 @@ $(".viewButton").click(function() {
         .find(".id")     // Gets a descendent with class="pro"
         .text();         // Retrieves the text within <td>
         
-    // window.open(`backupDocs.php?id=${id}`);
-    // window.location.replace(`https://payments.dblinc.net/GetClientIMG/GetImage.aspx?CLIENT=AMG&UID=${id}`);
+    window.open(`backupDocs.php?id=${id}`);
+    window.location.replace(`https://payments.dblinc.net/GetClientIMG/GetImage.aspx?CLIENT=AMG&UID=${id}`);
 });
 
 $(".rejectButton").click(function() {

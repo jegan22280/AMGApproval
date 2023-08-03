@@ -7,7 +7,16 @@
 
                 <?php
                 if (isset($_SESSION['LUser'])) {
-                    echo "<span class = 'footer-text ml-auto mr-auto mt-5'>&copy; ".date('Y')." D&B Logistics<br>Logged in as ".$_SESSION['LUser']."</span>";                
+                    if ($_SESSION['ULevel'] == 700) {
+                        $userLevel = 'Admin';
+                    }
+                    if ($_SESSION['ULevel'] == 690) {
+                        $userLevel = 'Commenter';
+                    }
+                    if ($_SESSION['ULevel'] == 650) {
+                        $userLevel = 'Viewer';
+                    }
+                    echo "<span class = 'footer-text ml-auto mr-auto mt-5'>&copy; ".date('Y')." D&B Logistics<br>Logged in as ".$_SESSION['LUser']." - ".$userLevel."</span>";                
                 } else {
                     echo "<span class = 'footer-text ml-auto mr-auto mt-5'>&copy; ".date('Y')." D&B Logistics</span>"; 
                 }

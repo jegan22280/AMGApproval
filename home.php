@@ -43,13 +43,13 @@ $listResult = $listConn->query($listSql);
     $dZip = $row["dzip"];
     $bAmt = $row["bill_amt"];
     $id = $row["uniqueID"];
-    $seq = $row["seq"];
+    // $seq = $row["seq"];
     $note = $row["auth_note"];
     $ship = $row["ship_date"]
   ?>
 
   <tr>
-    <td class='pro'><?php echo $pro; ?></td>
+    <td class='pro linkDisguise'><?php echo $pro; ?></td>
     <td class='scac'><?php echo $scac; ?></td>
     <td class='note'><?php echo $note; ?></td>
     <td class = "id d-none"><?php echo $id; ?></td>
@@ -79,12 +79,22 @@ $listResult = $listConn->query($listSql);
 
 $(".viewButton").click(function() {
 
-        let id = $(this).closest("tr")   // Finds the closest row <tr> 
-        .find(".id")     // Gets a descendent with class="pro"
-        .text();         // Retrieves the text within <td>
-        
-    window.open(`backupDocs.php?id=${id}`);
-    window.location.replace(`https://payments.dblinc.net/GetClientIMG/GetImage.aspx?CLIENT=AMG&UID=${id}`);
+let id = $(this).closest("tr")   // Finds the closest row <tr> 
+.find(".id")     // Gets a descendent with class="pro"
+.text();         // Retrieves the text within <td>
+
+// window.open(`backupDocs.php?id=${id}`);
+window.open(`https://payments.dblinc.net/GetClientIMG/GetImage.aspx?CLIENT=AMG&UID=${id}`);
+});
+
+$(".pro").click(function() {
+
+let id = $(this).closest("tr")   // Finds the closest row <tr> 
+.find(".id")     // Gets a descendent with class="pro"
+.text();         // Retrieves the text within <td>
+
+// window.open(`backupDocs.php?id=${id}`);
+window.location.assign(`details.php?invoiceID=${id}`);
 });
 
 $(".rejectButton").click(function() {
@@ -95,7 +105,7 @@ $(".rejectButton").click(function() {
         .find(".ship")     // Gets a descendent with class="ship"
         .text();         // Retrieves the text within <td>
 
-    window.location.replace(`reject.php?invoiceID=${id}&shipDate=${ship}`);
+    window.location.assign(`reject.php?invoiceID=${id}&shipDate=${ship}`);
 });
 
 $(".approveButton").click(function() {
@@ -106,7 +116,7 @@ $(".approveButton").click(function() {
         .find(".ship")     // Gets a descendent with class="ship"
         .text();         // Retrieves the text within <td>
 
-    window.location.replace(`approve.php?invoiceID=${id}&shipDate=${ship}`);
+    window.location.assign(`approve.php?invoiceID=${id}&shipDate=${ship}`);
 });
 
 $(".commentButton").click(function() {
@@ -117,7 +127,7 @@ $(".commentButton").click(function() {
         .find(".ship")     // Gets a descendent with class="ship"
         .text();         // Retrieves the text within <td>
 
-    window.location.replace(`comment.php?invoiceID=${id}&shipDate=${ship}`);
+    window.location.assign(`comment.php?invoiceID=${id}&shipDate=${ship}`);
 });
 
 </script>

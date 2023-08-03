@@ -74,3 +74,10 @@ body {
 {
     height: 2rem;
 }
+
+.linkDisguise
+{
+    color:blue;
+    text-decoration:underline;
+    cursor:pointer;
+}

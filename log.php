@@ -13,6 +13,7 @@
     </div>
   </div>
 
+  <!-- create a tabulator table ordered by date bat default with all the logs in it -->
 <script>
   var table = new Tabulator("#log",{
     ajaxURL:"includes/_log_data.php", //ajax url
@@ -36,4 +37,5 @@
   })
 
 </script>
-  <!-- create a tabulator table ordered by date bat default with all the logs in it -->
+
+<?php require_once "includes/footer.php";  ?>

@@ -34,10 +34,6 @@
       <!-- Custom CSS -->
       <link rel="stylesheet" href="css/styles.css">
 
-      <!-- <script>
-        window.history.forward();
-      </script>  -->
-
       <title><?php  echo TITLE  ?></title>
   </head>
   <body>

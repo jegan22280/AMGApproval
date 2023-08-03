@@ -94,7 +94,7 @@ let id = $(this).closest("tr")   // Finds the closest row <tr>
 .text();         // Retrieves the text within <td>
 
 // window.open(`backupDocs.php?id=${id}`);
-window.location.assign(`details.php?invoiceID=${id}`);
+  $.getJSON(`//192.168.0.35/AmerigasSVC/FrtJSON.aspx?UID=${id}`);
 });
 
 $(".rejectButton").click(function() {

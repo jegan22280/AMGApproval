@@ -27,9 +27,11 @@ $listResult = $listConn->query($listSql);
               <th>Hold Reason</th>
               <th class="d-none">id</th>
               <th class="d-none">ship date</th>
+              <th>Bill Date</th>
               <th>Origin Zip</th>
-              <th>Destination Zip</th>
-              <th>Bill Amount</th>
+              <th>Dest Zip</th>
+              <th>Amount</th>
+              <th>PO Wgt/Bill Wgt</th> 
               <th>Action</th>
             </tr>
           </thead>
@@ -45,7 +47,10 @@ $listResult = $listConn->query($listSql);
     $id = $row["uniqueID"];
     // $seq = $row["seq"];
     $note = $row["auth_note"];
-    $ship = $row["ship_date"]
+    $ship = $row["ship_date"];
+    $poWeight = $row["po_weight"];
+    $invWeight = $row["inv_weight"];
+    $invDate = $row["inv_date"];
   ?>
 
   <tr>
@@ -54,9 +59,11 @@ $listResult = $listConn->query($listSql);
     <td class='note'><?php echo $note; ?></td>
     <td class = "id d-none"><?php echo $id; ?></td>
     <td class = "ship d-none"><?php echo $ship; ?></td>
+    <td><?php echo $invDate?></td>
     <td><?php echo $oZip; ?></td>
     <td><?php echo $dZip; ?></td>
     <td><?php echo '$'.number_format(floatval($bAmt),2); ?></td>
+    <td><?php echo $poWeight.' lbs/'.$invWeight.'lbs'; ?></td>
     <td>
       <i class="fa-solid fa-file-arrow-down viewButton"data-toggle="tooltip" title="Download/View Backup docs"></i> &nbsp;
       <i class="fa-solid fa-thumbs-up approveButton" style="color:green"data-toggle="tooltip" title="Approve Invoice"></i> &nbsp;
@@ -79,22 +86,19 @@ $listResult = $listConn->query($listSql);
 
 $(".viewButton").click(function() {
 
-let id = $(this).closest("tr")   // Finds the closest row <tr> 
-.find(".id")     // Gets a descendent with class="pro"
-.text();         // Retrieves the text within <td>
+  let id = $(this).closest("tr")   // Finds the closest row <tr> 
+  .find(".id")     // Gets a descendent with class="pro"
+  .text();         // Retrieves the text within <td>
 
-// window.open(`backupDocs.php?id=${id}`);
-window.open(`https://payments.dblinc.net/GetClientIMG/GetImage.aspx?CLIENT=AMG&UID=${id}`);
-});
+  // window.open(`backupDocs.php?id=${id}`);
+  window.open(`https://payments.dblinc.net/GetClientIMG/GetImage.aspx?CLIENT=AMG&UID=${id}`);
+  });
 
-$(".pro").click(function() {
-
-let id = $(this).closest("tr")   // Finds the closest row <tr> 
-.find(".id")     // Gets a descendent with class="pro"
-.text();         // Retrieves the text within <td>
-
-// window.open(`backupDocs.php?id=${id}`);
-  $.getJSON(`//192.168.0.35/AmerigasSVC/FrtJSON.aspx?UID=${id}`);
+  $(".pro").click(function() {
+    let id = $(this).closest("tr")   // Finds the closest row <tr> 
+    .find(".id")     // Gets a descendent with class="pro"
+    .text();         // Retrieves the text within <td>
+  window.open(`details.php?invoiceID=${id}`)
 });
 
 $(".rejectButton").click(function() {
